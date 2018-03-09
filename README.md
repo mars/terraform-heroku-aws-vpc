@@ -1,7 +1,7 @@
 AWS VPC ready for 🍐 Heroku Private Spaces
 ===========================================
 
-A [Terraform](https://www.terraform.io/) configuration providing:
+A [Terraform](https://www.terraform.io/) module providing:
 
 * [AWS VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html) compatible with [Private Space Peering](https://devcenter.heroku.com/articles/private-space-peering)
 * Public & private subnets ([Scenario 2](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario2.html))
@@ -23,9 +23,9 @@ terraform apply \
   -var aws_region=us-west-2
 ```
 
-#### Outputs
+#### Example outputs
 
-`.env` file containing various values from the provisioned infrastructure:
+`example/local-module/.env` file containing various values from the provisioned infrastructure:
 
 ```
 AWS_VPC_REGION=xx-xxxx-x
@@ -66,3 +66,7 @@ module "heroku_aws_vpc" {
   }
 }
 ```
+
+#### Module outputs
+
+See [outputs.tf](outputs.tf).
