@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 provider "heroku" {
-  version = "~> 1.2"
+  version = "~> 1.3"
   email   = "${var.heroku_email}"
   api_key = "${var.heroku_api_key}"
 }
