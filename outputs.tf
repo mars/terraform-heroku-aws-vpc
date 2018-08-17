@@ -10,12 +10,20 @@ output "cidr" {
   value = "${aws_vpc.default.cidr_block}"
 }
 
+output "public_route_table_id" {
+  value = "${aws_route_table.public.id}"
+}
+
 output "public_subnet_id" {
   value = "${aws_subnet.public.id}"
 }
 
 output "public_subnet_cidr" {
   value = "${aws_subnet.public.cidr_block}"
+}
+
+output "private_route_table_id" {
+  value = "${aws_route_table.private.id}"
 }
 
 output "private_subnet_id" {

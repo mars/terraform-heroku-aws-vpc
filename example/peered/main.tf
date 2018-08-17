@@ -60,3 +60,9 @@ resource "heroku_space_peering_connection_accepter" "accept" {
   space                     = "${heroku_space.default.name}"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.request.id}"
 }
+
+resource "aws_route" "internet_gateway" {
+  route_table_id            = "${module.heroku_aws_vpc.public_route_table_id}"
+  destination_cidr_block    = "${data.heroku_space_peering_info.default.vpc_cidr}"
+  vpc_peering_connection_id = "${aws_vpc_peering_connection.request.id}"
+}

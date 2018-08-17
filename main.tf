@@ -35,14 +35,15 @@ resource "aws_subnet" "public" {
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.default.id}"
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.public.id}"
-  }
-
   tags {
     Name = "${var.name}-public-routes"
   }
+}
+
+resource "aws_route" "internet_gateway" {
+  route_table_id            = "${aws_route_table.public.id}"
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id                = "${aws_internet_gateway.public.id}"
 }
 
 resource "aws_route_table_association" "public" {
@@ -89,14 +90,15 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.default.id}"
 
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.private_to_public.id}"
-  }
-
   tags {
     Name = "${var.name}-private-routes"
   }
+}
+
+resource "aws_route" "nat_gateway" {
+  route_table_id            = "${aws_route_table.private.id}"
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id            = "${aws_nat_gateway.private_to_public.id}"
 }
 
 resource "aws_route_table_association" "private" {
