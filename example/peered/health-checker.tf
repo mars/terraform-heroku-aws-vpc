@@ -10,9 +10,32 @@ resource "heroku_app" "health" {
   internal_routing = true
 
   config_vars {
-    HEALTH_CHECKER_PRIVATE_IP_ADDRESS = "${aws_instance.health_checker.private_ip}"
-    HEALTH_CHECKER_PRIVATE_DNS_NAME   = "${aws_instance.health_checker.private_dns}"
+    HEALTH_CHECKER_PRIVATE_IP       = "${aws_instance.health_checker.private_ip}"
+    HEALTH_CHECKER_PRIVATE_DNS_NAME = "${aws_instance.health_checker.private_dns}"
   }
+}
+
+resource "heroku_slug" "health" {
+  app = "${heroku_app.health.id}"
+
+  process_types = {
+    web = "ruby server.rb"
+  }
+
+  file_path = "slug.tgz"
+}
+
+resource "heroku_app_release" "health" {
+  app     = "${heroku_app.health.id}"
+  slug_id = "${heroku_slug.health.id}"
+}
+
+resource "heroku_formation" "health" {
+  app        = "${heroku_app.health.id}"
+  type       = "web"
+  quantity   = 1
+  size       = "Private-S"
+  depends_on = ["heroku_app_release.health"]
 }
 
 resource "aws_key_pair" "health_checker" {
@@ -33,7 +56,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["679593333241"] # Canonical
+  owners = ["679593333241"] # Bitnami
 }
 
 resource "aws_instance" "health_checker" {
