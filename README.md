@@ -58,7 +58,7 @@ module "heroku_aws_vpc" {
   // Requires locally configured ssh key
   // See other auth options:
   //   https://www.terraform.io/docs/modules/sources.html#github
-  source = "git@github.com:heroku/terraform-aws-vpc.git"
+  source = "git@github.com:mars/terraform-aws-vpc.git"
 
   providers = {
     aws   = "aws"

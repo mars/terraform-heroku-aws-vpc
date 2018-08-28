@@ -10,7 +10,7 @@ provider "local" {
 }
 
 module "heroku_aws_vpc" {
-  source     = "git@github.com:heroku/terraform-aws-vpc.git"
+  source     = "git@github.com:mars/terraform-aws-vpc.git"
   name       = "${var.name}"
   aws_region = "${var.aws_region}"
 
