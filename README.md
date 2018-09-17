@@ -11,6 +11,8 @@ A [Terraform](https://www.terraform.io/) module providing:
 Usage
 -----
 
+⏩ See also: [example config peering the VPC with a Private Space](https://github.com/mars/terraform-aws-vpc-peered).
+
 ### Example apply
 
 ```bash
