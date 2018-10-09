@@ -1,6 +1,8 @@
 AWS VPC ready for 🍐 Heroku Private Spaces
 ===========================================
 
+[![Terraform module](https://img.shields.io/badge/dynamic/json.svg?label=Terraform%20module&url=https%3A%2F%2Fregistry.terraform.io%2Fv1%2Fmodules%2Fmars%2Faws-vpc%2Fheroku&query=%24.version&colorB=%235D54E1)](https://registry.terraform.io/modules/mars/aws-vpc/heroku)
+
 A [Terraform](https://www.terraform.io/) module providing:
 
 * [AWS VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html) compatible with [Private Space Peering](https://devcenter.heroku.com/articles/private-space-peering)
@@ -42,7 +44,7 @@ AWS_VPC_PRIVATE_STATIC_OUTGOING_IP=x.x.x.x
 
 ### As a module
 
-Invoke this config from another config; see also the [Github example](example/github-module/main.tf).
+Invoke this config from another config:
 
 ```terraform
 provider "aws" {
@@ -57,10 +59,8 @@ provider "local" {
 }
 
 module "heroku_aws_vpc" {
-  // Requires locally configured ssh key
-  // See other auth options:
-  //   https://www.terraform.io/docs/modules/sources.html#github
-  source = "git@github.com:mars/terraform-aws-vpc.git"
+  source  = "mars/aws-vpc/heroku"
+  version = "~> 1.0"
 
   providers = {
     aws   = "aws"
